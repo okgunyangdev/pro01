@@ -1,0 +1,14 @@
+package com.company.app.entity;
+
+import java.time.LocalDateTime;
+
+public class Qna {
+	private Long no;
+	private int level;	//1:질문, 2:답변
+	private Long parno;	//질문글이 0이면, 해당 답변글도 0임
+	private String title;
+	private String content;
+	private String auther;
+	private LocalDateTime resdate;
+	private int hits;
+}

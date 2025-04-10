@@ -1,0 +1,44 @@
+package com.company.app.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.company.app.entity.Qna;
+import com.company.app.repository.QnaRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor			//생성자 주입
+public class QnaService {
+	private final QnaRepository qnaRepository;
+	
+	public List<Qna> getAllQna() {
+		return qnaRepository.findAllByOrderByParnoDescNoAsc();
+	}
+	
+	public Qna findByNo(Long no) {
+		return qnaRepository.findById(no).orElse(null);
+	}
+	
+	public Qna save(Qna qna) {
+		return qnaRepository.save(qna);
+	}
+	
+	public Qna update(Qna qna) {
+		return qnaRepository.save(qna);
+	}
+	
+	public void delete(Long no) {	//답변 글만 삭제
+		qnaRepository.deleteById(no);
+	}
+	
+	public void deleteByParno(Long parno) {  //질문 삭제시 해당 답변도 연쇄삭제
+		qnaRepository.deleteByParno(parno);
+	}
+	
+	public List<Qna> findReplies(Long parno){
+		qnaRepository.findByParno(parno);
+	}
+}

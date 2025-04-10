@@ -1,0 +1,84 @@
+package com.company.app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.company.app.entity.Qna;
+import com.company.app.service.QnaService;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/qna")
+@CrossOrigin(origins = "*")   //CORS 허용
+public class QnaController {
+
+	private final QnaService qnaService;
+	
+	@GetMapping("/list")
+	public String getAllQna(Model model) {
+		model.addAttribute("qnas", qnaService.getAllQna());
+		return "qna/list";
+	}
+	
+	@GetMapping("/detail/{no}")		//답글 상세보기
+	public String getQna(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("qna", qnaService.findByNo(no));
+		return "qna/detail";
+	}
+	
+	@GetMapping("/question/{parno}")	//질문글 상세보기
+	public String getQuestion(@PathVariable("parno") Long parno, Model model) {
+		model.addAttribute("qnas", qnaService.findReplies(parno));
+		return "qna/detail";
+	}
+	
+	@GetMapping("/ins")		//글쓰기 폼 로딩
+	public String QnaForm(Model model) {
+		model.addAttribute("qna", new Qna());
+		return "qna/form";
+	}
+	
+	@PostMapping("/new")		//질문 글 쓰기
+	public String insQuestion(@ModelAttribute Qna qna) {
+		qnaService.save(qna);
+		return "redirect:/qna/list";
+	}
+	
+	@PostMapping("/reply/{parno}")	//답글 쓰기
+	public String insReply(@PathVariable("parno") Long parno, @ModelAttribute Qna qna) {
+		qna.setParno(parno);
+		qnaService.save(qna);
+		return "redirect:/qna/list";
+	}
+	
+	@GetMapping("/edit/{no}")	//글 수정 폼 로딩
+	
+	
+	@PostMapping("/update")	//글 수정 처리
+	
+	
+	@GetMapping("/reply/del/{no}")	//해당 답글 삭제
+	
+	
+	@GetMapping("/delete/{parno}")	//질문 삭제시 해당 답글도 연쇄 삭제
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

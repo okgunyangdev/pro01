@@ -1,0 +1,23 @@
+package com.company.app.rest;
+
+@RestController
+@Slf4j
+public class NoteRestController {
+
+    @Value("${note.upload.path}")
+    private String uploadPath;
+
+    @PostMapping("/note/upload")
+    public String upload(@RequestParam("file") MultipartFile file) {
+        try {
+            String origin = file.getOriginalFilename();
+            String filename = UUID.randomUUID().toString() + "_" + origin;
+            File target = new File(uploadPath + filename);
+            file.transferTo(target);
+            return "/uploads/" + filename;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "파일 업로드 실패";
+        }
+    }
+}

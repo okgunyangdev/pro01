@@ -1,0 +1,98 @@
+package com.company.app.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.company.app.entity.Product;
+import com.company.app.service.ProductService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("product")
+public class ProductController {
+
+	private final ProductService productService;
+	
+	@GetMapping("/list")	//상품 목록
+	public String getAllList(Model model) {
+		model.addAttribute("products", productService.findAll());
+		return "product/list";
+	}
+	
+	@GetMapping("/detail/{no}")	//한 건의 상품 정보
+	public String getProduct(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("product", productService.findById(no));
+		return "product/detail";
+	}
+	
+	@GetMapping("/ins")	//상품 등록 폼 로딩
+	public String productForm(Model model) {
+		model.addAttribute("product", new Product());
+		return "product/form";
+	}
+	
+	@PostMapping("/new")	//상품 등록 처리
+	public String insProduct(@ModelAttribute Product product, 
+			@RequestParam("file1") MultipartFile file1, 
+			@RequestParam("file2") MultipartFile file2, HttpServletRequest request) throws IOException {
+		
+		String uploadPath = request.getServletContext().getRealPath("/images/");
+		
+		// 업로드 경로가 없으면 디렉토리 생성
+		File dir = new File(uploadPath);
+		if (!dir.exists()) {
+		    dir.mkdirs();
+		}
+		
+		if(!file1.isEmpty()) { //img1 = d:\kim\pro02\images\pd001.jpg => xacxacb_pd001.jpg
+			String fileName = UUID.randomUUID() + "_" + file1.getOriginalFilename();
+			file1.transferTo(new File(uploadPath+fileName));
+			product.setImg1("/images/"+fileName);
+		}
+		
+		if(!file2.isEmpty()) { //img2 = d:\kim\pro02\images\pd001_1.jpg => xacxacb_pd001_1.jpg
+			String fileName = UUID.randomUUID() + "_" + file2.getOriginalFilename();
+			file2.transferTo(new File(uploadPath+fileName));
+			product.setImg2("/images/"+fileName);
+		}
+		
+		productService.save(product);
+		return "redirect:/product/list";
+	}
+	
+	@GetMapping("/edit/{no}")	//상품 정보 수정 폼 로딩
+	public String editForm(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("product", productService.findById(no));
+		return "product/edit";
+	}
+	
+	@PostMapping("/update")	//상품 정보 수정 처리
+	public String update(@ModelAttribute Product product, 
+			@RequestParam("file1") MultipartFile file1, 
+			@RequestParam("file2") MultipartFile file2,
+			HttpServletRequest request) throws IOException {
+		insProduct(product, file1, file2, request);
+		return "redirect:/product/list";
+	}
+	
+	@GetMapping("/delete/{no}")
+	public String delete(@PathVariable("no") Long no) {
+		productService.delete(no);
+		return "redirect:/product/list";
+	}
+	
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>회원가입</title>
+</head>
+<body>
+<div class="container">	
+	<header class="header">
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="/">Company</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarNav">
+		      <ul class="navbar-nav">
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="/">Home</a>
+		        </li>
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				    게시판
+				  </a>
+				  <ul class="dropdown-menu">
+				    <li><a class="dropdown-item" href="/board/list">게시판 목록</a></li>
+				    <li><a class="dropdown-item" href="/board/ins">게시판 글 추가</a></li>
+				    <li><hr class="dropdown-divider"></li>
+				    <li><a class="dropdown-item" href="#">메뉴</a></li>
+				  </ul>
+				</li>
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				    회원
+				  </a>
+				  <ul class="dropdown-menu">
+  				    <li th:if="${session.loginMember != null and session.loginMember.id == 'admin'}"><a class="dropdown-item" href="/member/list">회원목록</a></li>
+  				  	<li th:if="${session.loginMember != null and session.loginMember.id == 'admin'}"><a class="dropdown-item" href="/member/add">회원등록</a></li>
+  				    <li th:if="${session.loginMember != null and session.loginMember.id == 'admin'}"><hr class="dropdown-divider"></li>
+  				  	<li th:if="${session.loginMember == null}"><a class="dropdown-item" href="/member/join">회원가입</a></li>
+  				    <li th:if="${session.loginMember == null}"><a class="dropdown-item" href="/member/login">로그인</a></lith:if="${session.loginMember == null}">
+  				  	<li th:if="${session.loginMember != null}"><a class="dropdown-item" href="/member/mypage">마이페이지</a></li>
+  				  	<li th:if="${session.loginMember != null}"><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
+  				  </ul>
+				</li>
+		        <li class="nav-item">
+		          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+		        </li>
+		      </ul>
+		    </div>
+			<ul class="nav justify-content-end">
+				<li class="nav-item" th:if="${session.loginMember == null}">
+				  <a class="nav-link" href="/member/login">로그인</a>
+				</li>
+				<li class="nav-item" th:if="${session.loginMember == null}">
+				  <a class="nav-link" href="/member/join">회원가입</a>
+				</li>
+				<li class="nav-item" th:if="${session.loginMember != null}">
+				  <a class="nav-link" href="/member/logout">로그아웃</a>
+				</li>
+				<li class="nav-item" th:if="${session.loginMember != null}">
+				  <a class="nav-link" href="/member/mypage">마이페이지</a>
+				</li>
+			</ul>
+		  </div>
+		</nav>
+	</header>
+	<hr>
+	<div>
+		배너
+	</div>
+	<div class="first-content">
+		<nav aria-label="breadcrumb">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a href="/">Home</a></li>
+		    <li class="breadcrumb-item"><a href="">회원</a></li>
+		    <li class="breadcrumb-item active" aria-current="page">회원 가입</li>
+		  </ol>
+		</nav>
+	</div>
+	<div class="container">
+		<h2 class="mt-4">회원가입</h2>
+		<hr>
+		<form th:action="@{/member/edit}" th:object="${member}" method="post">
+			<input type="hidden" id="no" th:field="*{no}" />
+			<div class="mb-3">
+				<label class="form-label" for="id">아이디</label>
+				<input type="text" class="form-control" id="id" th:field="*{id}" maxlength="100" readonly required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="name">이름</label>
+				<input type="text" class="form-control" id="name" th:field="*{name}" maxlength="50" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="email">이메일</label>
+				<input type="email" class="form-control" id="email" th:field="*{email}" maxlength="50" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="tel">연락처</label>
+				<input type="tel" class="form-control" id="tel" th:field="*{tel}" maxlength="50" required>
+			</div>
+			<div class="mb-3">
+				
+			</div>
+			<button type="submit" class="btn btn-success">수정</button>
+			<button type="reset" class="btn btn-warning">취소</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>

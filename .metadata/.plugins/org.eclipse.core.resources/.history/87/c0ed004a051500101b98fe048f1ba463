@@ -1,0 +1,38 @@
+package com.company.app.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.company.app.entity.Note;
+import com.company.app.repository.NoteRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class NoteService {
+
+    private final NoteRepository noteRepository;
+
+    public List<Note> getAllNotes() {
+        return noteRepository.findAllByOrderByNoDesc();
+    }
+
+    public Optional<Note> getNoteById(Long no) {
+        return noteRepository.findById(no);
+    }
+
+    public Note saveNote(Note note) {
+        return noteRepository.save(note);
+    }
+
+    public void deleteNote(Long no) {
+        noteRepository.deleteById(no);
+    }
+
+    public List<Note> searchNotes(String keyword) {
+        return noteRepository.findByTitleContainingOrContentContainingOrderByNoDesc(keyword, keyword);
+    }
+}

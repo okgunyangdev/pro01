@@ -1,0 +1,17 @@
+package com.company.app.entity;
+
+import java.time.LocalDateTime;
+
+public class Board {
+	private Long no;
+	
+	private String title;
+	
+	private String content;
+	
+	private String author;
+	
+	private LocalDateTime resdate;
+	
+	private int hits;
+}

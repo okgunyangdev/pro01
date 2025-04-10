@@ -1,0 +1,45 @@
+package com.company.app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.company.app.entity.Board;
+import com.company.app.service.BoardService;
+
+@Controller
+public class BoardController {  //Thymeleaf 용
+
+	private final BoardService boardService;
+
+	public BoardController(BoardService boardService) {
+		this.boardService = boardService;
+	}
+	
+	public String getAllBoards(Model model) {
+		model.addAttribute("boards", boardService.getAllBoards());
+		return "board-list";
+	}
+	
+	public String getBoard(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("board", boardService.getBoardById(no));
+		return "board-detail";
+	}
+	
+	public String boardForm(Model model) {
+		model.addAttribute("board", new Board());
+		return "board-form";   //board-form.html <form th:object="board">
+	}
+	
+	public String saveBoard(@ModelAttribute Board board) {
+		boardService.saveBoard(board);
+		return "redirect:/";
+	}
+	
+	public String editForm(@PathVariable Long no, Model model) {
+		model.addAttribute("board", boardService.getBoardById(no));
+		return "board-edit";
+	}
+	
+}

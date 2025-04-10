@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>노트 수정</title>
+    <th:block th:replace="fragments/header :: link"></th:block>
+    <link href="/summernote/summernote-lite.min.css" rel="stylesheet">
+    <script src="/summernote/summernote-lite.min.js"></script>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="container mt-3">
+    <h2>노트 수정</h2>
+    <form th:action="@{/note/update}" method="post">
+        <input type="hidden" th:field="*{note.no}" name="no">
+        <input type="text" th:field="*{note.title}" class="form-control mb-2" name="title">
+        <textarea id="summernote" name="content" th:text="${note.content}"></textarea>
+        <button type="submit" class="btn btn-primary mt-2">수정</button>
+    </form>
+</div>
+<script>
+    $('#summernote').summernote({
+        height: 300,
+        callbacks: {
+            onImageUpload: function(files) {
+                const formData = new FormData();
+                formData.append("file", files[0]);
+                $.ajax({
+                    url: '/note/upload',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(url) {
+                        $('#summernote').summernote('insertImage', url);
+                    }
+                });
+            }
+        }
+    });
+</script>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

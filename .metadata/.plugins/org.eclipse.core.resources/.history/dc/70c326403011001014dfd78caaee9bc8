@@ -1,0 +1,64 @@
+package com.company.app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.company.app.entity.Board;
+import com.company.app.service.BoardService;
+
+@Controller
+@RequestMapping("/board")
+public class BoardController {  //Thymeleaf 용
+
+	private final BoardService boardService;
+
+	public BoardController(BoardService boardService) {
+		this.boardService = boardService;
+	}
+	
+	@GetMapping("/list")
+	public String getAllBoards(Model model) {
+		model.addAttribute("boards", boardService.getAllBoards());
+		return "board-list";
+	}
+	
+	@GetMapping("/detail/{no}")
+	public String getBoard(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("board", boardService.getBoardById(no));
+		return "board-detail";
+	}
+	
+	@GetMapping("/ins")
+	public String boardForm(Model model) {
+		model.addAttribute("board", new Board());
+		return "board-form";   //board-form.html <form th:object="board">
+	}
+	
+	@GetMapping("/new")
+	public String saveBoard(@ModelAttribute Board board) {
+		boardService.saveBoard(board);
+		return "redirect:/board/list";
+	}
+	
+	public String editForm(@PathVariable Long no, Model model) {
+		model.addAttribute("board", boardService.getBoardById(no));
+		return "board-edit";  //board-edit.html <form th:object="board">
+	}
+	
+	public String updateBoard(@PathVariable Long no, @ModelAttribute Board board) {
+		board.setNo(no);
+		boardService.updateBoard(board);
+		return "redirect:/board/list";
+	}
+	
+	public String deleteBoard(@PathVariable Long no) {
+		boardService.deleteBoard(no);
+		return "redirect:/board/list";
+	}
+	
+	
+}

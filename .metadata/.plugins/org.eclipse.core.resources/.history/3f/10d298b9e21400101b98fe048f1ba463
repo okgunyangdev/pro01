@@ -1,0 +1,8 @@
+package com.company.app.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin(origins = "*")   //CORS 허용
+public class QnaRestController {
+
+}
