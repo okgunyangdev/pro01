@@ -35,3 +35,4 @@ git branch -M main
 git push -u origin main
 ```
 
+<a href="https://www.notion.so/2-4-1d124049e2ca80edb2f6ef4590a8da0d?pvs=4">타임리프 템플릿 레이아웃 구성</a>
