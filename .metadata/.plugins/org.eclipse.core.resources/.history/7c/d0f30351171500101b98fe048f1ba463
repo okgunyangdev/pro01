@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>노트 상세보기</title>
+	<th:block th:replace="fragments/header :: jquery"></th:block>
+	<th:block th:replace="fragments/header :: link"></th:block>
+	<th:block th:replace="fragments/header :: script"></th:block>
+	<th:block th:replace="fragments/header :: link2"></th:block>
+	<th:block th:replace="fragments/header :: script2"></th:block>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="container mt-3">
+    <h2 th:text="${note.title}">노트 제목</h2>
+    <div th:utext="${note.content}" class="border p-3"></div>
+    <div class="mt-2">
+        <a th:href="@{'/note/edit/' + ${note.no}}" class="btn btn-warning">수정</a>
+        <a th:href="@{'/note/delete/' + ${note.no}}" class="btn btn-danger">삭제</a>
+        <a th:href="@{/note/list}" class="btn btn-secondary">목록</a>
+    </div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>노트 목록</title>
+    <th:block th:replace="fragments/header :: link"></th:block>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="container mt-3">
+    <h2>노트 목록</h2>
+    <form method="get" th:action="@{/note/list}">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="검색어 입력">
+        <button type="submit" class="btn btn-outline-primary btn-sm">검색</button>
+        <a th:href="@{/note/form}" class="btn btn-sm btn-success">새 노트 작성</a>
+    </form>
+    <hr>
+    <ul class="list-group">
+        <li class="list-group-item" th:each="note : ${notes}">
+            <a th:href="@{'/note/detail/' + ${note.no}}" th:text="${note.title}">제목</a>
+            <span class="float-end" th:text="${note.resdate}"></span>
+        </li>
+    </ul>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

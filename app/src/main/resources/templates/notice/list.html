@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 목록</title>
+	<th:block th:replace="fragments/header :: link"></th:block>
+	<th:block th:replace="fragments/header :: script"></th:block>
+	<th:block th:replace="fragments/header :: style"></th:block>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="container">
+	<hr>
+	<div>
+		배너
+	</div>
+	<div class="first-content">
+		<nav aria-label="breadcrumb">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a href="/">Home</a></li>
+		    <li class="breadcrumb-item"><a href="/notice/list">공지사항</a></li>
+		    <li class="breadcrumb-item active" aria-current="page">목록</li>
+		  </ol>
+		</nav>
+	</div>
+    <h2>공지사항 목록</h2>
+    <a href="/notice/ins" class="btn btn-primary mb-3" th:if="${session.loginMember != null and session.loginMember.id == 'admin'}">공지사항 등록</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr th:each="notice : ${noticeList}">
+			    <td th:text="${notice.no}"></td>
+			    <td>
+					<a th:href="@{/notice/detail/{no}(no=${notice.no})}" th:text="${notice.title}"></a>
+				</td>
+				<td>관리자</td>
+			    <td th:text="${#temporals.format(notice.resdate, 'yyyy-MM-dd HH:mm')}"></td>
+			    <td th:text="${notice.hits}"></td>
+			</tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

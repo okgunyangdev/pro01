@@ -1,0 +1,36 @@
+package com.company.app.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.company.app.entity.Board;
+import com.company.app.entity.Product;
+import com.company.app.entity.Qna;
+import com.company.app.repository.BoardRepository;
+import com.company.app.repository.ProductRepository;
+import com.company.app.repository.QnaRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MainService {
+	private final ProductRepository productRepository;
+	private final BoardRepository boardRepository;
+	private final QnaRepository qnaRepository;
+	
+	public List<Product> getLatestProducts() {
+		return productRepository.findTop3ByOrderByResdateDesc();
+	}
+	
+	public List<Board> getLatestBoards() {
+		return boardRepository.findTop3ByOrderByResdateDesc();
+	}
+	
+	public List<Qna> getLatestQnas() {
+		return qnaRepository.findTop3ByLevelAndOrderByResdateDesc(1);
+	}
+	
+	
+}

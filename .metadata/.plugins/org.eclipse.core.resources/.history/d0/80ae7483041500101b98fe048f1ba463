@@ -1,0 +1,29 @@
+package com.company.app.entity;
+
+@Entity
+@Table(name = "note")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Note {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long no;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    private String author;
+
+    private String filePath;   // 업로드한 파일 경로
+    private String fileName;   // 실제 파일 이름
+
+    @CreationTimestamp
+    private LocalDateTime resdate;
+}

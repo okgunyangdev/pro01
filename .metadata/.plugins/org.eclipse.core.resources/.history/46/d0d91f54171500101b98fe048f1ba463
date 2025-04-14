@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>노트 작성</title>
+	<th:block th:replace="fragments/header :: jquery"></th:block>
+	<th:block th:replace="fragments/header :: link"></th:block>
+	<th:block th:replace="fragments/header :: script"></th:block>
+	<th:block th:replace="fragments/header :: link2"></th:block>
+	<th:block th:replace="fragments/header :: script2"></th:block>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<div class="container mt-3">
+    <h2>노트 작성</h2>
+    <form th:action="@{/note/insert}" method="post">
+        <input type="text" name="title" class="form-control mb-2" placeholder="제목 입력" required>
+        <textarea id="summernote" name="content" style="display:none;"></textarea>
+        <button type="submit" class="btn btn-primary mt-2">등록</button>
+    </form>
+</div>
+<script>
+    $('#summernote').summernote({
+        height: 300,
+		placeholder: "내용을 입력해주세요", //안내 문구
+		focus: true,  // 초기화 후 커서가 편집 가능한 영역에 포커스를 맞춤
+		lang: 'ko-KR', //한글 설정, 기본값은 'en-US'
+		toolbar: [
+		    ['insert', ['picture']],
+		    ['fontsize', ['fontsize']],
+		    ['fontName', ['fontname']],
+		    ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+		    ['color', ['forecolor', 'backcolor']],
+		    ['para', ['ul', 'ol', 'paragraph']],
+		    ['height', ['height']],
+		    ['table', ['table']],
+		    ['insert', ['link', 'video']],
+		    ['view', ['fullscreen', 'codeview', 'help']]
+		],
+        callbacks: {
+            onImageUpload: function(files) {
+                const formData = new FormData();
+                formData.append("file", files[0]);
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(url) {
+                        $('#summernote').summernote('insertImage', url);
+                    }
+                });
+            }
+        }
+    });
+</script>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

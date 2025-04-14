@@ -1,0 +1,16 @@
+package com.company.app.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.company.app.entity.Board;
+import com.company.app.entity.Qna;
+
+public interface QnaRepository extends JpaRepository<Qna, Long>{
+	List<Qna> findByLevel(int level);
+	List<Qna> findByParno(Long parno);
+	List<Qna> findAllByOrderByParnoDescNoAsc();
+	List<Qna> deleteByParno(Long parno);
+	List<Qna> findTop3ByLevelAndOrderByResdateDesc(int level);
+}

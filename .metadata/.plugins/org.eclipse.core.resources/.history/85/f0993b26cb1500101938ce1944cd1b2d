@@ -1,0 +1,58 @@
+package com.company.app.entity;
+
+import java.time.LocalDateTime;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Product {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long no;		//상품 번호
+	
+	@Column(nullable = false, length = 100)
+	private String cate;	//상품 카테고리
+	
+	@Column(nullable = false, length = 200)
+	private String pname;	//상품명
+	
+	@Column(columnDefinition = "TEXT")
+	private String comment;	//상품 설명
+	
+	@Builder.Default
+	private int price1 = 1000;	//입고가격
+	
+	@Builder.Default
+	private int price2 = 1300;	//출고가격
+	
+	@Builder.Default
+	private int amount = 1;	//상품 현재 잔존 수량
+	
+	@Builder.Default
+	private String img1 = "/images/noimg.jpg";	//상품 메인 이미지(800x600) src/main/resources/static/images/noimg.jpg
+	
+	@Builder.Default
+	private String img2 = "/images/noimg2.jpg";	//상품 보조 이미지(600x600) src/main/resources/static/images/noimg2.jpg
+	
+	@Builder.Default
+	private LocalDateTime resdate = LocalDateTime.now();	//등록 일시
+}

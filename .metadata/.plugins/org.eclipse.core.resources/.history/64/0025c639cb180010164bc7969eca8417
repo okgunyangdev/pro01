@@ -1,0 +1,16 @@
+package com.company.app.service;
+
+import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MainService {
+	private final ProductService productService;
+	private final BoardService boardService;
+	private final QnaService qnaService;
+	
+	public List<Product> getLatestProducts() {
+		return productService.find
+	}
+}

@@ -1,0 +1,21 @@
+package com.company.app.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.company.app.entity.Product;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MainService {
+	private final ProductService productService;
+	private final BoardService boardService;
+	private final QnaService qnaService;
+	
+	public List<Product> getLatestProducts() {
+		return productService.findTop3ByOrderByResdateDesc();
+	}
+}

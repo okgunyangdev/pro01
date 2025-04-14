@@ -1,0 +1,54 @@
+package com.company.app.controller;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/notice")
+public class NoticeController {
+    private final NoticeService noticeService;
+
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("noticeList", noticeService.getAll());
+        return "notice/list";
+    }
+
+    @GetMapping("/form")
+    public String form(Model model) {
+        model.addAttribute("notice", new Notice());
+        return "notice/form";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute Notice notice) {
+        noticeService.save(notice);
+        return "redirect:/notice/list";
+    }
+
+    @GetMapping("/edit/{no}")
+    public String edit(@PathVariable Long no, Model model) {
+        Notice notice = noticeService.getById(no).orElseThrow();
+        model.addAttribute("notice", notice);
+        return "notice/edit";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute Notice notice) {
+        noticeService.save(notice);
+        return "redirect:/notice/list";
+    }
+
+    @GetMapping("/detail/{no}")
+    public String detail(@PathVariable Long no, Model model) {
+        Notice notice = noticeService.getById(no).orElseThrow();
+        notice.setHits(notice.getHits() + 1);
+        noticeService.save(notice);
+        model.addAttribute("notice", notice);
+        return "notice/detail";
+    }
+
+    @GetMapping("/delete/{no}")
+    public String delete(@PathVariable Long no) {
+        noticeService.delete(no);
+        return "redirect:/notice/list";
+    }
+}

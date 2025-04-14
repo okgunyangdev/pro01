@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문 등록</title>
+	<th:block th:replace="fragments/header :: link"></th:block>
+	<th:block th:replace="fragments/header :: script"></th:block>
+	<th:block th:replace="fragments/header :: style"></th:block>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>	
+<div class="container">
+	<hr>
+	<h2>해당 요청을 처리할 수 없습니다.</h2>
+	<figure>
+		<img src="/images/500.png" alt="500 오류" />
+	</figure>
+	<div class="btn-group" style="display:block; width:160px; margin:0 auto;">
+		<a href="/" class="btn btn-primary">메인으로 돌아가기</a>
+	</div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

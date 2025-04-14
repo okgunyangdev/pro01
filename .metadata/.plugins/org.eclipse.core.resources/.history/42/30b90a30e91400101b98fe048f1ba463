@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>질문 및 답변 목록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container">
+    <h2>질문 및 답변</h2>
+    <a href="/qna/form" class="btn btn-primary mb-3">질문 등록</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="q : ${qnas}">
+                <td th:text="${q.no}"></td>
+                <td>
+                    <span th:if="${q.level == 2}">&nbsp;&nbsp;&nbsp;↳ </span>
+                    <a th:href="@{'/qna/detail/' + ${q.no}}" th:text="${q.title}"></a>
+                </td>
+                <td th:text="${q.author}"></td>
+                <td th:text="${#temporals.format(q.resdate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${q.hits}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
