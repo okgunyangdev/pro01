@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메인 페이지</title>
+	<th:block th:replace="fragments/header :: link"></th:block>
+	<th:block th:replace="fragments/header :: script"></th:block>
+	<th:block th:replace="fragments/header :: style"></th:block>
+	<style>
+	.main-wrap {
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+	}	
+	.page {
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+	}
+	#page1 {
+		background-color: #fdffe8;
+	}
+	.page .title {
+		text-align:center;
+	}
+	.page .title::before {
+		content:"";
+		display:block; 
+		width:40px;
+		height:50px;
+		background-repeat: no-repeat;
+		background-position: center center;
+		margin:14px auto;
+	}
+	#page1 .title::before {
+		background-image: url("@{/images/newevent-icon.png}");
+	}
+	#page2 .title::before {
+		background-image: url("@{/images/playwithetude-icon.png}");
+	}
+	#page3 .title::before {
+		background-image: url("@{/images/whatsnew-icon.png}");
+	}
+	</style>
+</head>
+<body>
+<div style="width:100; height:100%; overflow:hidden;">
+	<div class="main-wrap">	
+		<th:block th:replace="fragments/header :: header"></th:block>
+		<div id="carouselExample" class="carousel slide">
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <img src="./images/vs01.jpg" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="./images/vs02.jpg" class="d-block w-100" alt="...">
+		    </div>
+		    <div class="carousel-item">
+		      <img src="./images/vs03.jpg" class="d-block w-100" alt="...">
+		    </div>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>
+	</div>
+
+	<div class="page" id="page1">
+		<div class="container">
+			<h2 class="title">신상품</h2>
+			<p>최근 등록한 상품 3건</p>
+			<ul class="list-group mb-4">
+				<li class="list-group-item" th:each="p : ${products}">
+				    <strong th:text="${p.pname}">상품명</strong> - <span th:text="${#temporals.format(p.resdate, 'yyyy-MM-dd')}">날짜</span>
+				</li>
+			</ul>	
+		</div>
+	</div>
+	<div class="page" id="page2">
+	    <div class="container">
+			<h2 class="title">최근 게시글</h2>
+			<p>자유게시판(board)에서 최근 게시글 3건</p>
+			<ul class="list-group mb-4">
+			    <li class="list-group-item" th:each="b : ${boards}">
+			        <strong th:text="${b.title}">제목</strong> - <span th:text="${b.author}">작성자</span> - <span th:text="${#temporals.format(b.resdate, 'yyyy-MM-dd')}">날짜</span>
+			    </li>
+			</ul>	
+	    </div>
+	</div>
+	<div class="page" id="page3">
+		<div class="container">
+			<h2 class="title">최근 질문</h2 class="title">
+			<p>최근 질문 및 답변의 최근 질문만 3건</p>
+			<ul class="list-group">
+			    <li class="list-group-item" th:each="q : ${qnas}">
+			        <strong th:text="${q.title}">질문</strong> - <span th:text="${q.author}">작성자</span> - <span th:text="${#temporals.format(q.resdate, 'yyyy-MM-dd')}">날짜</span>
+			    </li>
+			</ul>	
+		</div>
+	</div>
+</div>
+<th:block th:replace="fragments/footer :: footer"></th:block>
+</body>
+</html>

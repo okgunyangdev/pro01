@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<footer id="footer" class="footer container-fluid" th:fragment="footer">
+		<div class="row">
+			<div class="col">
+				<p><strong>CEO</strong>: SU YOUN LEE</p>
+				<p><strong>Address</strong>: 100, Hangang-daero, Yongsan-gu, Seoul, 04386, Republic of Korea</p>
+				<p><strong>Business Registration No.</strong>: 135-81-05033</p>
+			</div>
+			<div class="col">
+				
+			</div>
+		</div>
+	</footer>	
+</body>
+</html>

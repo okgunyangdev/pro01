@@ -18,6 +18,7 @@
 		font-size:1.2em;
 		font-family: 'Noto Sans KR';
 		font-weight: 400;
+		color: #333;
 	}
 	.dropdown-toggle::after {
 		border:none;
@@ -27,6 +28,42 @@
 	}
 	.nav-link:focus, .nav-link:hover {
 		color: #ef426f;
+	}
+	#header {
+		position: fixed;
+		top:0px;
+		left:0px;
+		z-index:99;
+	}
+	.bg-body-tertiary {
+	    --bs-bg-opacity: 1;
+	    background-color: transparent!important;
+	}
+	.footer {
+		margin-top: 80px; 
+		padding-top: 20px;
+		padding-bottom: 20px;  
+		border-top: 5px solid #c9c9c9;
+		background-color: #ececec;
+	}
+	
+	@media only screen and (max-width: 767px) { /* 모바일 */
+		.bg-body-tertiary {
+			background-color: #fff!important;
+		}
+		
+	}
+	
+	@media only screen and (min-width: 768px) and (max-width: 1023px) { /* 태블릿 */
+		.bg-body-tertiary {
+			background-color: #fff!important;
+		}
+	}
+	
+	@media only screen and (min-width: 1024px) {  /* 데스크탑 */
+		.bg-body-tertiary {
+			background-color: transparent!important;
+		}
 	}
 	</style>	
 </head>
@@ -90,7 +127,7 @@
 			</li>
 	      </ul>
 	    </div>
-		<ul class="nav justify-content-end">
+		<ul class="nav justify-content-end" id="tnb">
 			<li class="nav-item" th:if="${session.loginMember == null}">
 			  <a class="nav-link" href="/member/login">로그인</a>
 			</li>
