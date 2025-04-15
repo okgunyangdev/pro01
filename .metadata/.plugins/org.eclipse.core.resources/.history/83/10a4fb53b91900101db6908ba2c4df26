@@ -8,7 +8,6 @@
 	<th:block th:replace="fragments/header :: script"></th:block>
 	<th:block th:replace="fragments/header :: style"></th:block>
 	<style>
-	/* 0페이지 */	
 	.main-wrap {
 		width: 100vw;
 		height: 100vh;
@@ -37,25 +36,16 @@
 		margin:14px auto;
 		margin-top:30px;
 	}
-	
-	/* 페이지1 */
 	#page1 .title::before {
 		background-image: url("/images/newevent-icon.png");
 	}
-	
-	/* 페이지2 */
 	#page2 .title::before {
 		background-image: url("/images/playwithetude-icon.png");
 	}
-	
-	
-	/* 페이지 */
 	#page3 .title::before {
 		background-image: url("/images/whatsnew-icon.png");
 	}
-
 	
-	/* 모바일 퍼스트(Mobile First) */	
 	@media only screen and (max-width: 767px) { /* 모바일 */
 		.main-wrap {
 			width: 100vw;
@@ -64,18 +54,11 @@
 	}
 
 	@media only screen and (min-width: 768px) and (max-width: 1023px) { /* 태블릿 */
-		.main-wrap {
-			width: 100vw;
-			height: auto;
-		}	
+
 	}
 
 	@media only screen and (min-width: 1024px) {  /* 데스크탑 */
-		.main-wrap {
-			width: 100vw;
-			height: 100vh;
-			overflow: hidden;
-		}	
+
 	}
 	</style>
 </head>
