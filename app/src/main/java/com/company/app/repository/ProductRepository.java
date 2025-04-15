@@ -8,4 +8,5 @@ import com.company.app.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long>{ 
 	List<Product> findTop3ByOrderByResdateDesc();
+	List<Product> findByCate(String cate);
 }

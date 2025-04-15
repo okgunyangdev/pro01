@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.company.app.entity.Board;
 import com.company.app.entity.Qna;
 
 public interface QnaRepository extends JpaRepository<Qna, Long>{

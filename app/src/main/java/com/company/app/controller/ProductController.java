@@ -33,6 +33,13 @@ public class ProductController {
 		return "product/list";
 	}
 	
+	@GetMapping("/list/{cate}")	//카테고리 상품 목록
+	public String getCateList(@PathVariable("cate") String cate, Model model) {
+		model.addAttribute("products", productService.findByCate(cate));
+		model.addAttribute("cate", cate);
+		return "product/cate-list";
+	}
+	
 	@GetMapping("/detail/{no}")	//한 건의 상품 정보
 	public String getProduct(@PathVariable("no") Long no, Model model) {
 		model.addAttribute("product", productService.findById(no));

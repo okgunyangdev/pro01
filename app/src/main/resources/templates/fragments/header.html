@@ -13,6 +13,12 @@
 	    display: block;
 	    margin-top: 0;
 	}
+	.nav-link {
+		font-size:1.4em;
+	}
+	.dropdown-toggle::after {
+		border:none;
+	}
 	</style>	
 </head>
 <body>
@@ -28,27 +34,27 @@
 	    <div class="collapse navbar-collapse" id="navbarNav">
 	      <ul class="navbar-nav">
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			  <a class="nav-link dropdown-toggle" th:href="@{/product/list/{cate}(cate='EYE')}">
 			    EYE
 			  </a>
 			</li>
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			  <a class="nav-link dropdown-toggle" th:href="@{/product/list/{cate}(cate='LIP')}">
 			    LIP
 			  </a>
 			</li>
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			  <a class="nav-link dropdown-toggle" th:href="@{/product/list/{cate}(cate='FACE')}">
 			    FACE
 			  </a>
 			</li>
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    EYE
+			  <a class="nav-link dropdown-toggle" th:href="@{/product/list/{cate}(cate='SUNCARE')}">
+			    SUNCARE
 			  </a>
 			</li>
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			  <a class="nav-link dropdown-toggle" th:href="@{/product/list/{cate}(cate='SKINCARE')}">
 			    SKINCARE
 			  </a>
 			</li>

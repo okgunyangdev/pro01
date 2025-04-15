@@ -18,6 +18,10 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
+	public List<Product> findByCate(String cate){
+		return productRepository.findByCate(cate);
+	}
+	
 	public Product findById(Long no) {  	//제품 1건 조회(제품 상세보기)
 		return productRepository.findById(no).orElse(null);
 	}

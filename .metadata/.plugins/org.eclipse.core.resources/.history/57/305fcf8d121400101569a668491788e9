@@ -1,8 +1,0 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<body>
-	<footer id="footer" class="footer container-fluid">
-		여기는 카피라이트 입니다.
-	</footer>	
-</body>
-</html>
