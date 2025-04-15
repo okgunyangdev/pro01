@@ -34,7 +34,6 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 		margin:14px auto;
-		margin-top:30px;
 	}
 	#page1 .title::before {
 		background-image: url("/images/newevent-icon.png");
@@ -98,7 +97,7 @@
 	</div>
 	<div class="page" id="page3">
 		<div class="container">
-			<h2 class="title">최근 질문</h2>
+			<h2 class="title">최근 질문</h2 class="title">
 			<p>최근 질문 및 답변의 최근 질문만 3건</p>
 			<ul class="list-group">
 			    <li class="list-group-item" th:each="q : ${qnas}">
